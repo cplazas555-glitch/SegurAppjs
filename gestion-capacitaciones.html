@@ -16,6 +16,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="CSS/gestion-capacitaciones.css">
+    <link rel="stylesheet" href="CSS/sesion.css">
 </head>
 
 <body>
@@ -171,6 +172,16 @@
                                         </a>
                                     </li>
 
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-item cerrar-sesion" data-bs-toggle="modal"
+                                            data-bs-target="#modalCerrarSesion">
+                                            <i class="bi bi-box-arrow-right"></i>
+                                            Cerrar sesión
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -222,6 +233,7 @@
                                         </span>
 
                                         <input
+                                            id="buscarCapGestion"
                                             type="text"
                                             class="form-control"
                                             placeholder="Buscar por nombre...">
@@ -236,13 +248,13 @@
                                         Categoría
                                     </label>
 
-                                    <select class="form-select">
+                                    <select id="filtroCatGestion" class="form-select">
 
-                                        <option>Todos</option>
-                                        <option>Seguridad</option>
-                                        <option>Salud</option>
-                                        <option>Administrativo</option>
-                                        <option>Técnico</option>
+                                        <option value="Todos">Todos</option>
+                                        <option value="Seguridad">Seguridad</option>
+                                        <option value="Salud">Salud</option>
+                                        <option value="Administrativo">Administrativo</option>
+                                        <option value="Técnico">Técnico</option>
 
                                     </select>
 
@@ -254,13 +266,13 @@
                                         Estado
                                     </label>
 
-                                    <select class="form-select">
+                                    <select id="filtroEstadoGestion" class="form-select">
 
-                                        <option>Todos</option>
-                                        <option>Programada</option>
-                                        <option>En curso</option>
-                                        <option>Completada</option>
-                                        <option>Cancelada</option>
+                                        <option value="Todos">Todos</option>
+                                        <option value="Programada">Programada</option>
+                                        <option value="En curso">En curso</option>
+                                        <option value="Completada">Completada</option>
+                                        <option value="Cancelada">Cancelada</option>
 
                                     </select>
 
@@ -269,8 +281,10 @@
                                 <div class="col-12 col-md-1 d-flex align-items-end">
 
                                     <button
+                                        id="btnResetFiltrosCap"
                                         type="button"
-                                        class="btn btn-light w-100">
+                                        class="btn btn-light w-100"
+                                        title="Limpiar filtros">
 
                                         <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -292,8 +306,8 @@
                                     Lista de capacitaciones
                                 </h2>
 
-                                <small class="text-secondary">
-                                    7 capacitaciones registradas
+                                <small class="text-secondary" id="contadorCapGestion">
+                                    6 capacitaciones registradas
                                 </small>
                             </div>
 
@@ -313,7 +327,7 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody>
+                                    <tbody id="cuerpoTablaCapGestion">
 
                                         <tr>
 
@@ -579,7 +593,7 @@
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title">
+                    <h5 class="modal-title" id="tituloModalCap">
                         Nueva Capacitación
                     </h5>
 
@@ -591,74 +605,81 @@
 
                 </div>
 
+                <form id="formCapacitacion" novalidate>
+
                 <div class="modal-body">
 
-                    <form>
+                    <div id="alertaErrorCap" class="alert alert-danger d-none py-2 small" role="alert"></div>
+                    <input type="hidden" id="capIdEdit">
 
                         <div class="mb-3">
 
-                            <label class="form-label">
-                                Nombre de la capacitación
+                            <label for="capNombre" class="form-label">
+                                Nombre de la capacitación *
                             </label>
 
                             <input
+                                id="capNombre"
                                 type="text"
                                 class="form-control"
-                                placeholder="Ej. Prevención de riesgos laborales">
+                                placeholder="Ej. Prevención de riesgos laborales"
+                                required>
 
                         </div>
 
                         <div class="mb-3">
 
-                            <label class="form-label">
-                                Descripción
+                            <label for="capDescripcion" class="form-label">
+                                Descripción *
                             </label>
 
                             <textarea
+                                id="capDescripcion"
                                 class="form-control"
                                 rows="3"
-                                placeholder="Descripción de la capacitación"></textarea>
+                                placeholder="Descripción de la capacitación"
+                                required></textarea>
 
                         </div>
 
                         <div class="row g-3">
 
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
 
-                                <label class="form-label">
-                                    Categoría
+                                <label for="capCategoria" class="form-label">
+                                    Categoría *
                                 </label>
 
-                                <select class="form-select">
+                                <select id="capCategoria" class="form-select" required>
 
-                                    <option selected>
+                                    <option value="" selected>
                                         Seleccionar categoría
                                     </option>
 
-                                    <option>Seguridad</option>
-                                    <option>Salud</option>
-                                    <option>Administrativo</option>
-                                    <option>Técnico</option>
+                                    <option value="Seguridad">Seguridad</option>
+                                    <option value="Salud">Salud</option>
+                                    <option value="Administrativo">Administrativo</option>
+                                    <option value="Técnico">Técnico</option>
 
                                 </select>
 
                             </div>
 
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
 
-                                <label class="form-label">
-                                    Responsable
+                                <label for="capResponsable" class="form-label">
+                                    Responsable *
                                 </label>
 
-                                <select class="form-select">
+                                <select id="capResponsable" class="form-select" required>
 
-                                    <option selected>
+                                    <option value="" selected>
                                         Seleccionar responsable
                                     </option>
 
-                                    <option>Carlos Rodríguez</option>
-                                    <option>Ana Martínez</option>
-                                    <option>Juan Pérez</option>
+                                    <option value="Carlos Rodríguez">Carlos Rodríguez</option>
+                                    <option value="Ana Martínez">Ana Martínez</option>
+                                    <option value="Juan Pérez">Juan Pérez</option>
 
                                 </select>
 
@@ -666,52 +687,71 @@
 
                             <div class="col-12 col-md-4">
 
-                                <label class="form-label">
-                                    Fecha
+                                <label for="capEstado" class="form-label">
+                                    Estado *
+                                </label>
+
+                                <select id="capEstado" class="form-select" required>
+
+                                    <option value="Programada">Programada</option>
+                                    <option value="En curso">En curso</option>
+                                    <option value="Completada">Completada</option>
+                                    <option value="Cancelada">Cancelada</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-12 col-md-4">
+
+                                <label for="capFecha" class="form-label">
+                                    Fecha *
                                 </label>
 
                                 <input
+                                    id="capFecha"
                                     type="date"
-                                    class="form-control">
+                                    class="form-control"
+                                    required>
 
                             </div>
 
                             <div class="col-12 col-md-4">
 
-                                <label class="form-label">
-                                    Hora
+                                <label for="capHora" class="form-label">
+                                    Hora *
                                 </label>
 
                                 <input
+                                    id="capHora"
                                     type="time"
-                                    class="form-control">
+                                    class="form-control"
+                                    required>
 
                             </div>
 
                             <div class="col-12 col-md-4">
 
-                                <label class="form-label">
-                                    Duración
+                                <label for="capDuracion" class="form-label">
+                                    Duración *
                                 </label>
 
-                                <select class="form-select">
+                                <select id="capDuracion" class="form-select" required>
 
-                                    <option selected>
+                                    <option value="" selected>
                                         Seleccionar
                                     </option>
 
-                                    <option>1 hora</option>
-                                    <option>2 horas</option>
-                                    <option>3 horas</option>
-                                    <option>4 horas</option>
+                                    <option value="1 hora">1 hora</option>
+                                    <option value="2 horas">2 horas</option>
+                                    <option value="3 horas">3 horas</option>
+                                    <option value="4 horas">4 horas</option>
 
                                 </select>
 
                             </div>
 
                         </div>
-
-                    </form>
 
                 </div>
 
@@ -727,7 +767,8 @@
                     </button>
 
                     <button
-                        type="button"
+                        id="btnGuardarCap"
+                        type="submit"
                         class="btn btn-primary">
 
                         Guardar capacitación
@@ -736,6 +777,78 @@
 
                 </div>
 
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VER CAPACITACION -->
+    <div class="modal fade" id="modalVerCap" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verCapTitulo">Detalle de capacitación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body small">
+                    <p class="text-secondary mb-3" id="verCapDescripcion"></p>
+                    <div class="row g-2">
+                        <div class="col-6"><span class="text-muted d-block">Categoría</span><strong id="verCapCategoria"></strong></div>
+                        <div class="col-6"><span class="text-muted d-block">Estado</span><strong id="verCapEstado"></strong></div>
+                        <div class="col-6"><span class="text-muted d-block">Fecha</span><strong id="verCapFecha"></strong></div>
+                        <div class="col-6"><span class="text-muted d-block">Duración</span><strong id="verCapDuracion"></strong></div>
+                        <div class="col-12"><span class="text-muted d-block">Responsable</span><strong id="verCapResponsable"></strong></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR CAPACITACION -->
+    <div class="modal fade" id="modalEliminarCap" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar capacitación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="mensajeEliminarCap"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminarCap">Sí, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastModulo" class="toast-modulo" role="status" aria-live="polite">
+        <i class="bi bi-check-circle-fill"></i>
+        <span id="mensajeToast"></span>
+    </div>
+
+
+    <!-- MODAL CERRAR SESION -->
+    <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-confirmacion">
+                <div class="modal-header">
+                    <div class="icono-cerrar-sesion"><i class="bi bi-box-arrow-right"></i></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5>¿Cerrar sesión?</h5>
+                    <p>¿Estás seguro de que deseas cerrar tu sesión?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary boton-cancelar" data-bs-dismiss="modal">No, permanecer</button>
+                    <a href="index.html" class="btn boton-confirmar">Sí, cerrar sesión</a>
+                </div>
             </div>
         </div>
     </div>
@@ -744,6 +857,9 @@
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
     </script>
+    <script src="JS/sesion/sesion.js"></script>
+    <script src="JS/capacitaciones/capacitaciones-datos.js"></script>
+    <script src="JS/gestion-capacitaciones/gestion-capacitaciones.js"></script>
 
 </body>
 

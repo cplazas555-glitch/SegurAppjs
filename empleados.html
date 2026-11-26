@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="CSS/empleados.css">
 
+    <link rel="stylesheet" href="CSS/sesion.css">
+
 </head>
 
 <body>
@@ -135,9 +137,10 @@
 
                         <div class="d-flex align-items-center gap-3">
 
-                            <form class="d-flex">
+                            <form class="d-flex" id="formBuscarNavbar">
 
                                 <input
+                                    id="buscadorNavbarEmpleado"
                                     class="form-control form-control-sm"
                                     type="search"
                                     placeholder="Buscar empleado..."
@@ -234,6 +237,30 @@
 
                                     </li>
 
+
+                                    <li>
+
+                                        <hr class="dropdown-divider">
+
+                                    </li>
+
+
+                                    <li>
+
+                                        <a
+                                            href="#"
+                                            class="dropdown-item cerrar-sesion"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalCerrarSesion"
+                                        >
+
+                                            <i class="bi bi-box-arrow-right"></i>
+                                            Cerrar sesión
+
+                                        </a>
+
+                                    </li>
+
                                 </ul>
 
                             </div>
@@ -248,15 +275,28 @@
                 <section class="container-fluid p-4">
 
 
-                    <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-                        <h1 class="fw-bold mb-1">
-                            Empleados
-                        </h1>
+                        <div>
 
-                        <p class="text-muted mb-0">
-                            Gestión y consulta del personal de la organización.
-                        </p>
+                            <h1 class="fw-bold mb-1">
+                                Empleados
+                            </h1>
+
+                            <p class="text-muted mb-0">
+                                Gestión y consulta del personal de la organización.
+                            </p>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="btnAgregarEmpleado"
+                            class="btn btn-primary"
+                        >
+                            <i class="bi bi-plus-lg me-2"></i>
+                            Agregar empleado
+                        </button>
 
                     </div>
 
@@ -284,7 +324,7 @@
                                                 Empleados activos
                                             </p>
 
-                                            <h2 class="mb-0">
+                                            <h2 class="mb-0" id="kpiEmpleadosActivos">
                                                 28
                                             </h2>
 
@@ -319,7 +359,7 @@
                                                 Hombres
                                             </p>
 
-                                            <h2 class="mb-0">
+                                            <h2 class="mb-0" id="kpiEmpleadosHombres">
                                                 24
                                             </h2>
 
@@ -354,7 +394,7 @@
                                                 Mujeres
                                             </p>
 
-                                            <h2 class="mb-0">
+                                            <h2 class="mb-0" id="kpiEmpleadosMujeres">
                                                 4
                                             </h2>
 
@@ -384,7 +424,7 @@
                                         Empleados
                                     </h4>
 
-                                    <p class="text-muted mb-0">
+                                    <p class="text-muted mb-0" id="contadorEmpleadosHeader">
                                         4 registros encontrados
                                     </p>
 
@@ -394,44 +434,45 @@
                                 <div class="d-flex gap-2 flex-wrap">
 
                                     <input
+                                        id="buscarEmpleadoTabla"
                                         type="search"
                                         class="form-control"
                                         placeholder="Buscar empleado..."
                                     >
 
 
-                                    <select class="form-select">
+                                    <select id="filtroAreaEmpleado" class="form-select">
 
-                                        <option selected>
+                                        <option value="todas" selected>
                                             Todas las áreas
                                         </option>
 
-                                        <option>
+                                        <option value="Administración">
                                             Administración
                                         </option>
 
-                                        <option>
+                                        <option value="Operaciones">
                                             Operaciones
                                         </option>
 
-                                        <option>
+                                        <option value="Recursos Humanos">
                                             Recursos Humanos
                                         </option>
 
                                     </select>
 
 
-                                    <select class="form-select">
+                                    <select id="filtroEstadoEmpleado" class="form-select">
 
-                                        <option selected>
+                                        <option value="todos" selected>
                                             Todos los estados
                                         </option>
 
-                                        <option>
+                                        <option value="Activo">
                                             Activo
                                         </option>
 
-                                        <option>
+                                        <option value="Inactivo">
                                             Inactivo
                                         </option>
 
@@ -469,7 +510,7 @@
                                 </thead>
 
 
-                                <tbody>
+                                <tbody id="cuerpoTablaEmpleados">
 
 
                                     <tr>
@@ -917,7 +958,7 @@
 
                         <div class="card-footer bg-white d-flex justify-content-between align-items-center">
 
-                            <small class="text-muted">
+                            <small class="text-muted" id="contadorEmpleadosPie">
                                 Mostrando 1 a 4 de 4 empleados
                             </small>
 
@@ -1022,227 +1063,167 @@
     </div>
 
 
-    <div class="modal fade" id="modalDesactivarJuan" tabindex="-1">
-
-        <div class="modal-dialog modal-dialog-centered">
-
+    <!-- MODAL AGREGAR / EDITAR EMPLEADO -->
+    <div class="modal fade" id="modalFormEmpleado" tabindex="-1" aria-labelledby="tituloModalEmpleado" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Desactivar empleado
-                    </h5>
-
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                    ></button>
-
+                    <h5 class="modal-title" id="tituloModalEmpleado">Agregar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-
-
-                <div class="modal-body">
-
-                    ¿Está seguro de que desea desactivar a
-                    <strong>Juan Pérez</strong>?
-
-                </div>
-
-
-                <div class="modal-footer">
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                    >
-                        Desactivar
-                    </button>
-
-                </div>
-
+                <form id="formEmpleado" novalidate>
+                    <div class="modal-body">
+                        <div id="alertaErrorEmpleado" class="alert alert-danger d-none py-2 small" role="alert"></div>
+                        <input type="hidden" id="empleadoIdEdit">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="empNombre" class="form-label small fw-semibold">Nombre completo *</label>
+                                <input type="text" class="form-control" id="empNombre" placeholder="Ej. Laura Gómez" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="empCorreo" class="form-label small fw-semibold">Correo electrónico *</label>
+                                <input type="email" class="form-control" id="empCorreo" placeholder="Ej. laura.gomez@segurapp.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="empDocumento" class="form-label small fw-semibold">Documento *</label>
+                                <input type="text" class="form-control" id="empDocumento" placeholder="Ej. 1.045.678.901" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="empCargo" class="form-label small fw-semibold">Cargo *</label>
+                                <input type="text" class="form-control" id="empCargo" placeholder="Ej. Analista SST" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="empArea" class="form-label small fw-semibold">Área *</label>
+                                <select class="form-select" id="empArea" required>
+                                    <option value="">Seleccionar área</option>
+                                    <option value="Operaciones">Operaciones</option>
+                                    <option value="Administración">Administración</option>
+                                    <option value="Recursos Humanos">Recursos Humanos</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="empGenero" class="form-label small fw-semibold">Género *</label>
+                                <select class="form-select" id="empGenero" required>
+                                    <option value="">Seleccionar género</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="empEstado" class="form-label small fw-semibold">Estado *</label>
+                                <select class="form-select" id="empEstado" required>
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnGuardarEmpleado">Guardar empleado</button>
+                    </div>
+                </form>
             </div>
-
         </div>
-
     </div>
 
-
-    <div class="modal fade" id="modalDesactivarMaria" tabindex="-1">
-
+    <!-- MODAL VER EMPLEADO -->
+    <div class="modal fade" id="modalVerEmpleado" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-
             <div class="modal-content">
-
                 <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Desactivar empleado
-                    </h5>
-
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                    ></button>
-
+                    <h5 class="modal-title">Detalle del empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-
-
                 <div class="modal-body">
-
-                    ¿Está seguro de que desea desactivar a
-                    <strong>María López</strong>?
-
+                    <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
+                        <div class="bg-secondary-subtle rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px;" id="verEmpIniciales"></div>
+                        <div>
+                            <h6 class="mb-0 fw-bold" id="verEmpNombre"></h6>
+                            <small class="text-muted" id="verEmpCorreo"></small>
+                        </div>
+                    </div>
+                    <div class="row g-2 small">
+                        <div class="col-6"><span class="text-muted d-block">Documento</span><strong id="verEmpDocumento"></strong></div>
+                        <div class="col-6"><span class="text-muted d-block">Cargo</span><strong id="verEmpCargo"></strong></div>
+                        <div class="col-6"><span class="text-muted d-block">Área</span><span id="verEmpArea" class="badge text-bg-primary"></span></div>
+                        <div class="col-6"><span class="text-muted d-block">Estado</span><span id="verEmpEstado" class="badge"></span></div>
+                    </div>
                 </div>
-
-
                 <div class="modal-footer">
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                    >
-                        Desactivar
-                    </button>
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
-
-    <div class="modal fade" id="modalDesactivarCarlos" tabindex="-1">
-
+    <!-- MODAL CONFIRMAR CAMBIO DE ESTADO -->
+    <div class="modal fade" id="modalConfirmarEstadoEmpleado" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-
             <div class="modal-content">
-
                 <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Desactivar empleado
-                    </h5>
-
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                    ></button>
-
+                    <h5 class="modal-title" id="tituloModalEstadoEmpleado">Desactivar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-
-
                 <div class="modal-body">
-
-                    ¿Está seguro de que desea desactivar a
-                    <strong>Carlos Rodríguez</strong>?
-
+                    <p class="mb-0" id="mensajeModalEstadoEmpleado"></p>
                 </div>
-
-
                 <div class="modal-footer">
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                    >
-                        Desactivar
-                    </button>
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning" id="btnConfirmarEstadoEmpleado">Confirmar</button>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
-
-    <div class="modal fade" id="modalDesactivarAna" tabindex="-1">
-
+    <!-- MODAL ELIMINAR EMPLEADO -->
+    <div class="modal fade" id="modalEliminarEmpleado" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-
             <div class="modal-content">
-
                 <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Desactivar empleado
-                    </h5>
-
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                    ></button>
-
+                    <h5 class="modal-title">Eliminar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-
-
                 <div class="modal-body">
-
-                    ¿Está seguro de que desea desactivar a
-                    <strong>Ana Gómez</strong>?
-
+                    <p class="mb-0" id="mensajeModalEliminarEmpleado"></p>
                 </div>
-
-
                 <div class="modal-footer">
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                    >
-                        Desactivar
-                    </button>
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminarEmpleado">Sí, eliminar</button>
                 </div>
-
             </div>
-
         </div>
+    </div>
 
+    <div id="toastModulo" class="toast-modulo" role="status" aria-live="polite">
+        <i class="bi bi-check-circle-fill"></i>
+        <span id="mensajeToast"></span>
+    </div>
+
+    <!-- MODAL CERRAR SESION -->
+    <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-confirmacion">
+                <div class="modal-header">
+                    <div class="icono-cerrar-sesion"><i class="bi bi-box-arrow-right"></i></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5>¿Cerrar sesión?</h5>
+                    <p>¿Estás seguro de que deseas cerrar tu sesión?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary boton-cancelar" data-bs-dismiss="modal">No, permanecer</button>
+                    <a href="index.html" class="btn boton-confirmar">Sí, cerrar sesión</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/sesion/sesion.js"></script>
+    <script src="JS/empleados/empleados.js"></script>
 
 </body>
 

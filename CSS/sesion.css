@@ -1,0 +1,115 @@
+/* Estilos compartidos para el botón y modal de cerrar sesión en todos los apartados */
+
+.dropdown-menu .dropdown-item.cerrar-sesion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #dc4141 !important;
+    font-weight: 500;
+}
+
+.dropdown-menu .dropdown-item.cerrar-sesion i {
+    color: #dc4141 !important;
+    width: 15px;
+    font-size: 14px;
+    margin-right: 0 !important;
+}
+
+.dropdown-menu .dropdown-item.cerrar-sesion:hover,
+.dropdown-menu .dropdown-item.cerrar-sesion:focus {
+    background-color: #fff0f0 !important;
+    color: #c53030 !important;
+}
+
+.dropdown-menu .dropdown-item.cerrar-sesion:hover i,
+.dropdown-menu .dropdown-item.cerrar-sesion:focus i {
+    color: #c53030 !important;
+}
+
+#modalCerrarSesion .modal-confirmacion {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+}
+
+#modalCerrarSesion .modal-confirmacion .modal-header {
+    border: none;
+    padding: 20px 20px 5px;
+    position: relative;
+}
+
+#modalCerrarSesion .icono-cerrar-sesion {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #fff0f0;
+    color: #dc4141;
+    font-size: 21px;
+}
+
+#modalCerrarSesion .modal-confirmacion .btn-close {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    font-size: 11px;
+}
+
+#modalCerrarSesion .modal-confirmacion .modal-body {
+    padding: 10px 30px 5px;
+}
+
+#modalCerrarSesion .modal-confirmacion .modal-body h5 {
+    margin-bottom: 8px;
+    color: #172033;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#modalCerrarSesion .modal-confirmacion .modal-body p {
+    margin: 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+#modalCerrarSesion .modal-confirmacion .modal-footer {
+    border: none;
+    padding: 15px 25px 22px;
+    gap: 8px;
+}
+
+#modalCerrarSesion .boton-cancelar {
+    border: 1px solid #dce2e9;
+    background-color: #ffffff;
+    color: #536174;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+#modalCerrarSesion .boton-cancelar:hover {
+    background-color: #f3f5f8;
+    border-color: #cfd7e0;
+    color: #172033;
+}
+
+#modalCerrarSesion .boton-confirmar {
+    background-color: #091e42;
+    border: 1px solid #091e42;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+#modalCerrarSesion .boton-confirmar:hover {
+    background-color: #162b57;
+    border-color: #162b57;
+    color: #ffffff;
+}

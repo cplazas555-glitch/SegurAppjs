@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="CSS/modulos.css">
+    <link rel="stylesheet" href="CSS/sesion.css">
 </head>
 
 <body>
@@ -316,22 +317,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="alertaErrorEntrega" class="alert alert-danger d-none py-2 small" role="alert"></div>
                     <div class="mb-3">
-                        <label for="empleadoEntrega" class="form-label small fw-semibold">Empleado</label>
-                        <input type="text" id="empleadoEntrega" class="form-control" placeholder="Ej. Laura Gómez">
+                        <label for="empleadoEntrega" class="form-label small fw-semibold">Empleado *</label>
+                        <input type="text" id="empleadoEntrega" class="form-control" placeholder="Ej. Laura Gómez" required>
                     </div>
                     <div class="mb-3">
-                        <label for="elementoEntrega" class="form-label small fw-semibold">Elemento</label>
-                        <select id="elementoEntrega" class="form-select">
-                            <option value="Gafas de seguridad">Gafas de seguridad</option>
-                            <option value="Botas de seguridad">Botas de seguridad</option>
-                            <option value="Casco de seguridad">Casco de seguridad</option>
-                            <option value="Protección auditiva">Protección auditiva</option>
-                        </select>
+                        <label for="elementoEntrega" class="form-label small fw-semibold">Elemento *</label>
+                        <input type="text" id="elementoEntrega" class="form-control" placeholder="Ej. Guantes de nitrilo, Casco dieléctrico..." required>
                     </div>
                     <div class="mb-3">
-                        <label for="responsableEntrega" class="form-label small fw-semibold">Entregado por</label>
-                        <input type="text" id="responsableEntrega" class="form-control" value="Jairo Fonseca">
+                        <label for="responsableEntrega" class="form-label small fw-semibold">Entregado por *</label>
+                        <input type="text" id="responsableEntrega" class="form-control" value="Jairo Fonseca" required>
                     </div>
                     <div class="mb-3">
                         <label for="estadoEntrega" class="form-label small fw-semibold">Estado</label>
@@ -375,107 +372,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const buscarSuperior = document.getElementById("buscarSuperior");
-        const buscarElemento = document.getElementById("buscarElemento");
-        const filtroEstadoEpp = document.getElementById("filtroEstadoEpp");
-        const cuerpoInventario = document.getElementById("cuerpoInventario");
-        const contadorInventario = document.getElementById("contadorInventario");
-        const cuerpoEntregas = document.getElementById("cuerpoEntregas");
-        const toastModulo = document.getElementById("toastModulo");
-        const mensajeToast = document.getElementById("mensajeToast");
-        let timerToast = null;
-        let mostrandoTodas = false;
-
-        function mostrarToast(texto) {
-            mensajeToast.textContent = texto;
-            toastModulo.classList.add("visible");
-            clearTimeout(timerToast);
-            timerToast = setTimeout(() => toastModulo.classList.remove("visible"), 3000);
-        }
-
-        function filtrarInventario(valor) {
-            if (valor !== undefined) {
-                buscarSuperior.value = valor;
-                buscarElemento.value = valor;
-            }
-            const texto = buscarElemento.value.toLowerCase().trim();
-            const estado = filtroEstadoEpp.value;
-            const filas = cuerpoInventario.querySelectorAll("tr");
-            let visibles = 0;
-
-            filas.forEach((fila) => {
-                const coincideTexto = fila.textContent.toLowerCase().includes(texto);
-                const coincideEstado = estado === "todos" || fila.getAttribute("data-estado") === estado;
-                if (coincideTexto && coincideEstado) {
-                    fila.style.display = "";
-                    visibles++;
-                } else {
-                    fila.style.display = "none";
-                }
-            });
-            contadorInventario.textContent = "Mostrando " + (visibles ? "1 a " + visibles : "0") + " de " + filas.length + " elementos";
-        }
-
-        buscarSuperior.addEventListener("input", () => filtrarInventario(buscarSuperior.value));
-        buscarElemento.addEventListener("input", () => filtrarInventario(buscarElemento.value));
-        filtroEstadoEpp.addEventListener("change", () => filtrarInventario());
-
-        function alternarEntregas(verTodas) {
-            mostrandoTodas = verTodas;
-            document.querySelectorAll(".entrega-extra").forEach((tr) => {
-                tr.classList.toggle("d-none", !verTodas);
-            });
-            document.getElementById("seccionInventario").classList.toggle("d-none", verTodas);
-            document.getElementById("enlaceTodasEntregas").classList.toggle("d-none", verTodas);
-            document.getElementById("botonVerTodas").classList.toggle("d-none", !verTodas);
-
-            const total = cuerpoEntregas.querySelectorAll("tr").length;
-            const visibles = verTodas ? total : 2;
-            document.getElementById("contadorEntregas").textContent = "Mostrando 1 a " + visibles + " de " + total + " entregas";
-        }
-
-        document.getElementById("guardarEntrega").addEventListener("click", () => {
-            const empleado = document.getElementById("empleadoEntrega").value.trim();
-            const elemento = document.getElementById("elementoEntrega").value;
-            const responsable = document.getElementById("responsableEntrega").value.trim();
-            const estado = document.getElementById("estadoEntrega").value;
-
-            if (!empleado || !responsable) {
-                alert("Por favor completa los datos de la entrega.");
-                return;
-            }
-
-            const iniciales = empleado.split(/\s+/).slice(0, 2).map((p) => p[0].toUpperCase()).join("");
-            const hoy = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" });
-            const claseEstado = estado === "Entregado" ? "pill-verde" : "pill-amarillo";
-
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td><div class="celda-principal"><span class="iniciales-avatar-tabla bg-light text-secondary">${iniciales}</span><strong class="emp-nombre"></strong></div></td>
-                <td>${elemento}</td>
-                <td>${hoy}</td>
-                <td class="resp-nombre"></td>
-                <td><span class="etiqueta-pill ${claseEstado}">${estado}</span></td>
-            `;
-            tr.querySelector(".emp-nombre").textContent = empleado;
-            tr.querySelector(".resp-nombre").textContent = responsable;
-            cuerpoEntregas.prepend(tr);
-
-            if (estado === "Entregado") {
-                const kpiE = document.getElementById("kpiEntregados");
-                kpiE.textContent = Number(kpiE.textContent) + 1;
-            } else {
-                const kpiP = document.getElementById("kpiPendientes");
-                kpiP.textContent = Number(kpiP.textContent) + 1;
-            }
-
-            document.getElementById("empleadoEntrega").value = "";
-            bootstrap.Modal.getInstance(document.getElementById("modalRegistrarEntrega")).hide();
-            alternarEntregas(mostrandoTodas);
-            mostrarToast("Entrega registrada para " + empleado);
-        });
-    </script>
+    <script src="JS/sesion/sesion.js"></script>
+    <script src="JS/epp/epp.js"></script>
 </body>
 
 </html>

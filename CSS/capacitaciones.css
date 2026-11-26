@@ -345,6 +345,12 @@ h1 {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.dia-calendario:hover {
+    background-color: #edf5fd;
 }
 
 .dia-seleccionado {
@@ -357,6 +363,45 @@ h1 {
     background-color: var(--azul-oscuro);
     color: var(--blanco);
     font-weight: bold;
+    cursor: pointer;
+}
+
+.celda-dia-calendario {
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.celda-dia-calendario.dia-con-evento .punto-calendario {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+}
+
+.toast-modulo {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1080;
+    background-color: #091e42;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(9, 30, 66, 0.25);
+}
+
+.toast-modulo.visible {
+    display: flex;
+}
+
+.toast-modulo i {
+    color: var(--amarillo);
+    font-size: 16px;
 }
 
 .dia-con-evento {
