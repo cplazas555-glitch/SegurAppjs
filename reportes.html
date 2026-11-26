@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SegurApp - Reportes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="CSS/reportes.css">
+</head>
+
+<body>
+
+    <aside class="barra-lateral d-none d-md-flex">
+        <div class="contenedor-logo">
+            <img src="IMGS/logoSegurApp.png" alt="Logo SegurApp" class="logo">
+        </div>
+
+        <nav class="menu-lateral">
+            <a href="Dashboard.html" class="elemento-menu">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="empleados.html" class="elemento-menu">
+                <i class="bi bi-people"></i>
+                <span>Empleados</span>
+            </a>
+
+            <a href="capacitaciones.html" class="elemento-menu">
+                <i class="bi bi-book"></i>
+                <span>Capacitaciones</span>
+            </a>
+
+            <a href="inspecciones.html" class="elemento-menu">
+                <i class="bi bi-clipboard-check"></i>
+                <span>Inspecciones</span>
+            </a>
+
+            <a href="incidentes.html" class="elemento-menu">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span>Incidentes y Accidentes</span>
+            </a>
+
+            <a href="epp.html" class="elemento-menu">
+                <i class="bi bi-shield-check"></i>
+                <span>EPP</span>
+            </a>
+
+            <a href="riesgos.html" class="elemento-menu">
+                <i class="bi bi-shield-exclamation"></i>
+                <span>Riesgos</span>
+            </a>
+
+            <a href="documentos.html" class="elemento-menu">
+                <i class="bi bi-folder"></i>
+                <span>Documentos</span>
+            </a>
+
+            <a href="alertas.html" class="elemento-menu">
+                <i class="bi bi-bell"></i>
+                <span>Alertas</span>
+            </a>
+
+            <a href="reportes.html" class="elemento-menu activo">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reportes</span>
+            </a>
+
+            <a href="configuracion.html" class="elemento-menu">
+                <i class="bi bi-gear"></i>
+                <span>Configuración</span>
+            </a>
+        </nav>
+
+        <div class="decoracion-lateral"></div>
+    </aside>
+
+
+    <div class="offcanvas offcanvas-start menu-movil" tabindex="-1" id="menuMovil">
+        <div class="offcanvas-header">
+            <img src="IMGS/logoSegurApp.png" class="logo-movil" alt="Logo SegurApp">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="offcanvas-body p-0">
+            <nav class="menu-lateral">
+                <a href="Dashboard.html" class="elemento-menu">
+                    <i class="bi bi-grid-1x2"></i> <span>Dashboard</span>
+                </a>
+                <a href="empleados.html" class="elemento-menu">
+                    <i class="bi bi-people"></i> <span>Empleados</span>
+                </a>
+                <a href="capacitaciones.html" class="elemento-menu">
+                    <i class="bi bi-book"></i> <span>Capacitaciones</span>
+                </a>
+                <a href="inspecciones.html" class="elemento-menu">
+                    <i class="bi bi-clipboard-check"></i> <span>Inspecciones</span>
+                </a>
+                <a href="incidentes.html" class="elemento-menu">
+                    <i class="bi bi-exclamation-triangle"></i> <span>Incidentes y Accidentes</span>
+                </a>
+                <a href="epp.html" class="elemento-menu">
+                    <i class="bi bi-shield-check"></i> <span>EPP</span>
+                </a>
+                <a href="riesgos.html" class="elemento-menu">
+                    <i class="bi bi-shield-exclamation"></i> <span>Riesgos</span>
+                </a>
+                <a href="documentos.html" class="elemento-menu">
+                    <i class="bi bi-folder"></i> <span>Documentos</span>
+                </a>
+                <a href="alertas.html" class="elemento-menu">
+                    <i class="bi bi-bell"></i> <span>Alertas</span>
+                </a>
+                <a href="reportes.html" class="elemento-menu activo">
+                    <i class="bi bi-bar-chart"></i> <span>Reportes</span>
+                </a>
+                <a href="configuracion.html" class="elemento-menu">
+                    <i class="bi bi-gear"></i> <span>Configuración</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+    <main class="contenido-principal">
+
+        <header class="barra-superior">
+            <div class="izquierda-superior">
+                <button class="boton-menu-movil d-md-none" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#menuMovil" aria-controls="menuMovil" aria-label="Abrir menú">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <div class="titulos-pagina">
+                    <div id="migaPan" class="miga-pan d-none">
+                        <button type="button" onclick="mostrarVista('principal')">Reportes rápidos</button>
+                        <i class="bi bi-chevron-right"></i>
+                        <strong id="migaPanActual"></strong>
+                    </div>
+                    <h1 id="tituloVista">Reportes</h1>
+                    <p id="subtituloVista">Generación y consulta de reportes e indicadores del sistema.</p>
+                </div>
+            </div>
+
+            <div class="parte-derecha">
+                <div class="buscador-reportes">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="buscarReporte" placeholder="Buscar reporte..." aria-label="Buscar reporte">
+                </div>
+
+                <div class="dropdown">
+                    <button class="boton-notificaciones" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        title="Notificaciones">
+                        <i class="bi bi-bell"></i>
+                        <span class="numero-notificacion">1</span>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end panel-notificaciones">
+                        <div class="encabezado-notificaciones">
+                            <div>
+                                <strong>Notificaciones</strong>
+                                <small>Tienes 1 notificación</small>
+                            </div>
+                            <span class="cantidad-notificaciones">1</span>
+                        </div>
+
+                        <div class="notificacion">
+                            <div class="icono-notificacion">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div class="texto-notificacion">
+                                <strong>Reporte de Incidentes detenido</strong>
+                                <p>El reporte programado de incidentes requiere revisión para reanudar su generación.</p>
+                                <small>Hace 1 hora</small>
+                            </div>
+                        </div>
+
+                        <div class="pie-notificaciones">
+                            <a href="#" onclick="filtrarPorEstado('detenido'); return false;">Ver reporte detenido</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="usuario" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="avatar">SG</div>
+                        <div class="informacion-usuario">
+                            <strong>SegurApp</strong>
+                            <small>Administradora</small>
+                        </div>
+                        <i class="bi bi-chevron-down flecha"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end menu-usuario">
+                        <li>
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-person"></i>
+                                Mi perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item">
+                                <i class="bi bi-gear"></i>
+                                Configuración
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item cerrar-sesion" data-bs-toggle="modal"
+                                data-bs-target="#modalCerrarSesion">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- ==================== VISTA PRINCIPAL DE REPORTES ==================== -->
+        <section id="vistaPrincipal">
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-azul">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi" id="kpiGenerados">1</span>
+                            <span class="titulo-kpi">Reportes generados</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-verde">
+                            <i class="bi bi-download"></i>
+                        </div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi" id="kpiDescargas">3</span>
+                            <span class="titulo-kpi">Descargas realizadas</span>
+                            <span class="subtitulo-kpi texto-verde">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-amarillo">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">5</span>
+                            <span class="titulo-kpi">Programados</span>
+                            <span class="subtitulo-kpi texto-amarillo">Activos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi interactiva" data-bs-toggle="modal" data-bs-target="#modalNuevoReporte"
+                        role="button" tabindex="0">
+                        <div class="icono-kpi kpi-morado">
+                            <i class="bi bi-gear"></i>
+                        </div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi" id="kpiPersonalizados">2</span>
+                            <span class="titulo-kpi">Reportes personalizados</span>
+                            <span class="subtitulo-kpi texto-morado">Crear nuevo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row g-3 align-items-start">
+                <div class="col-12 col-xl-8">
+                    <div class="tarjeta-blanca">
+                        <div class="cabecera-tabla-reportes">
+                            <div>
+                                <h2>Listado de reportes</h2>
+                                <p id="subtituloListado">26 reportes disponibles</p>
+                            </div>
+
+                            <div class="controles-filtro">
+                                <select id="filtroEstado" class="filtro-estado" aria-label="Filtrar por estado">
+                                    <option value="todos">Todos los estados</option>
+                                    <option value="generado">Generado</option>
+                                    <option value="detenido">Detenido</option>
+                                </select>
+
+                                <button type="button" class="boton-crear-reporte" data-bs-toggle="modal"
+                                    data-bs-target="#modalNuevoReporte">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Nuevo reporte
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="tabla-reportes">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE DEL REPORTE</th>
+                                        <th>CATEGORÍA</th>
+                                        <th>DESCRIPCIÓN</th>
+                                        <th>ÚLTIMA GENERACIÓN</th>
+                                        <th>ESTADO</th>
+                                        <th class="text-end">DESCARGAR</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpoTablaReportes">
+                                    <tr data-estado="generado">
+                                        <td>
+                                            <div class="celda-nombre-reporte">
+                                                <div class="icono-fila kpi-verde">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="textos-fila">
+                                                    <strong>Reporte de Capacitaciones</strong>
+                                                    <small>Resumen de capacitaciones realizadas</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="categoria-texto cat-capacitaciones">Capacitaciones</span></td>
+                                        <td>Detalle de capacitaciones por empleado y estado</td>
+                                        <td>12/05/2023</td>
+                                        <td>
+                                            <span class="estado-etiqueta estado-generado">
+                                                <span class="punto"></span> Generado
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <button type="button" class="boton-descargar" title="Descargar reporte"
+                                                onclick="descargarReporte('Reporte de Capacitaciones', 'Capacitaciones', '12/05/2023', 'Generado')">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-estado="detenido">
+                                        <td>
+                                            <div class="celda-nombre-reporte">
+                                                <div class="icono-fila kpi-rojo">
+                                                    <i class="bi bi-exclamation-triangle"></i>
+                                                </div>
+                                                <div class="textos-fila">
+                                                    <strong>Reporte de Incidentes</strong>
+                                                    <small>Incidentes reportados en el período</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="categoria-texto cat-incidentes">Incidentes</span></td>
+                                        <td>Incidentes por tipo, área y estado</td>
+                                        <td>12/05/2023</td>
+                                        <td>
+                                            <span class="estado-etiqueta estado-detenido">
+                                                <span class="punto"></span> Detenido
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <button type="button" class="boton-descargar" title="Descargar reporte"
+                                                onclick="descargarReporte('Reporte de Incidentes', 'Incidentes', '12/05/2023', 'Detenido')">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-estado="generado">
+                                        <td>
+                                            <div class="celda-nombre-reporte">
+                                                <div class="icono-fila kpi-morado">
+                                                    <i class="bi bi-shield"></i>
+                                                </div>
+                                                <div class="textos-fila">
+                                                    <strong>Reporte de Inspecciones</strong>
+                                                    <small>Resultados de inspecciones de seguridad</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="categoria-texto cat-inspecciones">Inspecciones</span></td>
+                                        <td>Inspecciones realizadas y hallazgos</td>
+                                        <td>12/05/2023</td>
+                                        <td>
+                                            <span class="estado-etiqueta estado-generado">
+                                                <span class="punto"></span> Generado
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <button type="button" class="boton-descargar" title="Descargar reporte"
+                                                onclick="descargarReporte('Reporte de Inspecciones', 'Inspecciones', '12/05/2023', 'Generado')">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-estado="generado">
+                                        <td>
+                                            <div class="celda-nombre-reporte">
+                                                <div class="icono-fila kpi-amarillo">
+                                                    <i class="bi bi-shield-check"></i>
+                                                </div>
+                                                <div class="textos-fila">
+                                                    <strong>Reporte de EPP</strong>
+                                                    <small>Entrega y estado de EPP</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="categoria-texto cat-epp">EPP</span></td>
+                                        <td>EPP entregados por empleado y vencimientos</td>
+                                        <td>12/05/2023</td>
+                                        <td>
+                                            <span class="estado-etiqueta estado-generado">
+                                                <span class="punto"></span> Generado
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <button type="button" class="boton-descargar" title="Descargar reporte"
+                                                onclick="descargarReporte('Reporte de EPP', 'EPP', '12/05/2023', 'Generado')">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pie-tabla">
+                            <span id="contadorReportes">Mostrando 1 a 4 de 4 reportes</span>
+                            <div class="controles-paginacion">
+                                <button type="button" class="boton-pagina" disabled aria-label="Anterior">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                                <button type="button" class="boton-pagina actual">1</button>
+                                <button type="button" class="boton-pagina" disabled aria-label="Siguiente">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-xl-4">
+                    <div class="tarjeta-rapidos">
+                        <div class="cabecera-rapidos">
+                            <h2>Reportes rápidos</h2>
+                            <p>Genera reportes con un clic</p>
+                        </div>
+
+                        <div class="lista-rapidos">
+                            <button type="button" class="item-rapido" onclick="mostrarVista('capacitaciones')">
+                                <div class="icono-rapido kpi-verde">
+                                    <i class="bi bi-book"></i>
+                                </div>
+                                <div class="texto-rapido">
+                                    <strong>Resumen de capacitaciones</strong>
+                                    <small>Capacitaciones por estado</small>
+                                </div>
+                                <i class="bi bi-chevron-right flecha-rapido"></i>
+                            </button>
+
+                            <button type="button" class="item-rapido" onclick="mostrarVista('incidentes')">
+                                <div class="icono-rapido kpi-rojo">
+                                    <i class="bi bi-exclamation-octagon"></i>
+                                </div>
+                                <div class="texto-rapido">
+                                    <strong>Incidentes del mes</strong>
+                                    <small>Incidentes reportados este mes</small>
+                                </div>
+                                <i class="bi bi-chevron-right flecha-rapido"></i>
+                            </button>
+
+                            <button type="button" class="item-rapido" onclick="mostrarVista('epp')">
+                                <div class="icono-rapido kpi-morado">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <div class="texto-rapido">
+                                    <strong>Cumplimiento EPP</strong>
+                                    <small>Cumplimiento en entrega de EPP</small>
+                                </div>
+                                <i class="bi bi-chevron-right flecha-rapido"></i>
+                            </button>
+
+                            <button type="button" class="item-rapido" onclick="mostrarVista('riesgos')">
+                                <div class="icono-rapido kpi-amarillo">
+                                    <i class="bi bi-activity"></i>
+                                </div>
+                                <div class="texto-rapido">
+                                    <strong>Riesgos por área</strong>
+                                    <small>Riesgos agrupados por áreas</small>
+                                </div>
+                                <i class="bi bi-chevron-right flecha-rapido"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== SUBVISTA: RESUMEN DE CAPACITACIONES ==================== -->
+        <section id="vistaCapacitaciones" class="d-none">
+            <div class="barra-acciones-rapida">
+                <button type="button" class="boton-volver" onclick="mostrarVista('principal')">
+                    <i class="bi bi-arrow-left"></i> Volver a Reportes
+                </button>
+                <button type="button" class="boton-exportar"
+                    onclick="descargarReporte('Resumen de capacitaciones', 'Capacitaciones', 'Hoy', 'Generado')">
+                    <i class="bi bi-download"></i> Exportar reporte
+                </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-azul"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">24</span>
+                            <span class="titulo-kpi">Capacitaciones realizadas</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-verde"><i class="bi bi-people"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">196</span>
+                            <span class="titulo-kpi">Empleados capacitados</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-verde"><i class="bi bi-clock"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">92%</span>
+                            <span class="titulo-kpi">Cumplimiento promedio</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-morado"><i class="bi bi-person"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">8</span>
+                            <span class="titulo-kpi">Pendientes por realizar</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-xl-7">
+                    <div class="tarjeta-grafico">
+                        <h3>Capacitaciones por mes</h3>
+                        <div class="contenedor-svg">
+                            <svg viewBox="0 0 620 220" class="svg-grafico" aria-label="Gráfico de capacitaciones por mes">
+                                <defs>
+                                    <linearGradient id="areaCap" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#2563eb" stop-opacity="0.22" />
+                                        <stop offset="100%" stop-color="#2563eb" stop-opacity="0.02" />
+                                    </linearGradient>
+                                </defs>
+                                <line x1="38" y1="30" x2="600" y2="30" stroke="#edf0f3" />
+                                <line x1="38" y1="80" x2="600" y2="80" stroke="#edf0f3" />
+                                <line x1="38" y1="130" x2="600" y2="130" stroke="#edf0f3" />
+                                <line x1="38" y1="180" x2="600" y2="180" stroke="#dfe1e6" />
+                                <text x="16" y="34" font-size="11" fill="#6b778c">30</text>
+                                <text x="16" y="84" font-size="11" fill="#6b778c">20</text>
+                                <text x="16" y="134" font-size="11" fill="#6b778c">10</text>
+                                <text x="22" y="184" font-size="11" fill="#6b778c">0</text>
+
+                                <polygon fill="url(#areaCap)"
+                                    points="55,140 103,120 151,130 199,105 247,60 295,90 343,80 391,70 439,85 487,100 535,115 583,125 583,180 55,180" />
+                                <polyline fill="none" stroke="#2563eb" stroke-width="2.5"
+                                    points="55,140 103,120 151,130 199,105 247,60 295,90 343,80 391,70 439,85 487,100 535,115 583,125" />
+
+                                <g fill="#2563eb" font-size="11" font-weight="600" text-anchor="middle">
+                                    <circle cx="55" cy="140" r="4" /><text x="55" y="130" fill="#172033">8</text>
+                                    <circle cx="103" cy="120" r="4" /><text x="103" y="110" fill="#172033">12</text>
+                                    <circle cx="151" cy="130" r="4" /><text x="151" y="120" fill="#172033">10</text>
+                                    <circle cx="199" cy="105" r="4" /><text x="199" y="95" fill="#172033">15</text>
+                                    <circle cx="247" cy="60" r="4" /><text x="247" y="50" fill="#172033">24</text>
+                                    <circle cx="295" cy="90" r="4" /><text x="295" y="80" fill="#172033">18</text>
+                                    <circle cx="343" cy="80" r="4" /><text x="343" y="70" fill="#172033">20</text>
+                                    <circle cx="391" cy="70" r="4" /><text x="391" y="60" fill="#172033">22</text>
+                                    <circle cx="439" cy="85" r="4" /><text x="439" y="75" fill="#172033">19</text>
+                                    <circle cx="487" cy="100" r="4" /><text x="487" y="90" fill="#172033">16</text>
+                                    <circle cx="535" cy="115" r="4" /><text x="535" y="105" fill="#172033">13</text>
+                                    <circle cx="583" cy="125" r="4" /><text x="583" y="115" fill="#172033">11</text>
+                                </g>
+
+                                <g fill="#6b778c" font-size="11" text-anchor="middle">
+                                    <text x="55" y="202">Ene</text><text x="103" y="202">Feb</text><text x="151" y="202">Mar</text>
+                                    <text x="199" y="202">Abr</text><text x="247" y="202">May</text><text x="295" y="202">Jun</text>
+                                    <text x="343" y="202">Jul</text><text x="391" y="202">Ago</text><text x="439" y="202">Sep</text>
+                                    <text x="487" y="202">Oct</text><text x="535" y="202">Nov</text><text x="583" y="202">Dic</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-5">
+                    <div class="tarjeta-grafico">
+                        <h3>Capacitaciones por categoría</h3>
+                        <div class="contenido-donut">
+                            <div class="anillo-donut"
+                                style="background: conic-gradient(#7c3aed 0% 30%, #f59e0b 30% 47%, #4d9e3d 47% 78%, #3b82f6 78% 100%);">
+                                <div class="centro-donut">
+                                    <strong>120</strong>
+                                    <small>Total</small>
+                                </div>
+                            </div>
+
+                            <div class="leyenda-donut">
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#3b82f6;"></span>Seguridad</span>
+                                    <span class="valor-leyenda">60 (50%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#4d9e3d;"></span>Salud</span>
+                                    <span class="valor-leyenda">30 (25%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#f59e0b;"></span>Técnico</span>
+                                    <span class="valor-leyenda">20 (17%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#7c3aed;"></span>Administrativo</span>
+                                    <span class="valor-leyenda">10 (8%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-blanca">
+                <div class="cabecera-tabla-reportes">
+                    <div>
+                        <h2>Capacitaciones recientes</h2>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="tabla-reportes">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Instructor</th>
+                                <th>Asistentes</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Prevención de riesgos laborales</strong></td>
+                                <td>Seguridad</td>
+                                <td>09/05/2023</td>
+                                <td>Luis Martínez</td>
+                                <td>28</td>
+                                <td><span class="estado-etiqueta estado-completada">Completada</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Uso correcto de EPP</strong></td>
+                                <td>Seguridad</td>
+                                <td>12/05/2023</td>
+                                <td>Ana Gómez</td>
+                                <td>26</td>
+                                <td><span class="estado-etiqueta estado-completada">Completada</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primeros auxilios básicos</strong></td>
+                                <td>Salud</td>
+                                <td>14/05/2023</td>
+                                <td>Carlos Ruiz</td>
+                                <td>25</td>
+                                <td><span class="estado-etiqueta estado-completada">Completada</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Investigación de incidentes</strong></td>
+                                <td>Técnico</td>
+                                <td>16/05/2023</td>
+                                <td>María López</td>
+                                <td>24</td>
+                                <td><span class="estado-etiqueta estado-completada">Completada</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pie-tabla">
+                    <span>Mostrando 1 a 4 de 4 registros</span>
+                    <div class="controles-paginacion">
+                        <button type="button" class="boton-pagina" disabled><i class="bi bi-chevron-left"></i></button>
+                        <button type="button" class="boton-pagina actual">1</button>
+                        <button type="button" class="boton-pagina" disabled><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== SUBVISTA: INCIDENTES DEL MES ==================== -->
+        <section id="vistaIncidentes" class="d-none">
+            <div class="barra-acciones-rapida">
+                <button type="button" class="boton-volver" onclick="mostrarVista('principal')">
+                    <i class="bi bi-arrow-left"></i> Volver a Reportes
+                </button>
+                <button type="button" class="boton-exportar"
+                    onclick="descargarReporte('Incidentes del mes', 'Incidentes', 'Hoy', 'Generado')">
+                    <i class="bi bi-download"></i> Exportar reporte
+                </button>
+            </div>
+
+            <div class="row g-3 mb-4 row-cols-1 row-cols-sm-2 row-cols-xl-5">
+                <div class="col">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-azul"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">7</span>
+                            <span class="titulo-kpi">Incidentes reportados</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-verde"><i class="bi bi-person-check"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">3</span>
+                            <span class="titulo-kpi">Incidentes leves</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-amarillo"><i class="bi bi-exclamation-triangle"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">3</span>
+                            <span class="titulo-kpi">Incidentes moderados</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-rojo"><i class="bi bi-exclamation-octagon"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">1</span>
+                            <span class="titulo-kpi">Incidentes graves</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-morado"><i class="bi bi-calendar3"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">12</span>
+                            <span class="titulo-kpi">Días con incidentes</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-xl-7">
+                    <div class="tarjeta-grafico">
+                        <h3>Incidentes por día</h3>
+                        <div class="contenedor-svg">
+                            <svg viewBox="0 0 640 220" class="svg-grafico" aria-label="Gráfico de incidentes por día">
+                                <line x1="35" y1="30" x2="625" y2="30" stroke="#edf0f3" />
+                                <line x1="35" y1="80" x2="625" y2="80" stroke="#edf0f3" />
+                                <line x1="35" y1="130" x2="625" y2="130" stroke="#edf0f3" />
+                                <line x1="35" y1="180" x2="625" y2="180" stroke="#dfe1e6" />
+                                <text x="18" y="34" font-size="11" fill="#6b778c">3</text>
+                                <text x="18" y="84" font-size="11" fill="#6b778c">2</text>
+                                <text x="18" y="134" font-size="11" fill="#6b778c">1</text>
+                                <text x="18" y="184" font-size="11" fill="#6b778c">0</text>
+
+                                <!-- Barras de dias con incidentes -->
+                                <g fill="#ef4444">
+                                    <rect x="44" y="130" width="7" height="50" rx="2" />
+                                    <rect x="120" y="80" width="7" height="100" rx="2" />
+                                    <rect x="196" y="130" width="7" height="50" rx="2" />
+                                    <rect x="272" y="30" width="7" height="150" rx="2" />
+                                    <rect x="291" y="80" width="7" height="100" rx="2" />
+                                    <rect x="348" y="130" width="7" height="50" rx="2" />
+                                    <rect x="443" y="80" width="7" height="100" rx="2" />
+                                    <rect x="538" y="130" width="7" height="50" rx="2" />
+                                    <rect x="614" y="130" width="7" height="50" rx="2" />
+                                </g>
+
+                                <g fill="#6b778c" font-size="9.5" text-anchor="middle">
+                                    <text x="48" y="198">01</text><text x="86" y="198">03</text><text x="124" y="198">05</text>
+                                    <text x="162" y="198">07</text><text x="200" y="198">09</text><text x="238" y="198">11</text>
+                                    <text x="276" y="198">13</text><text x="314" y="198">15</text><text x="352" y="198">17</text>
+                                    <text x="390" y="198">19</text><text x="428" y="198">21</text><text x="466" y="198">23</text>
+                                    <text x="504" y="198">25</text><text x="542" y="198">27</text><text x="580" y="198">29</text>
+                                    <text x="618" y="198">31</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-5">
+                    <div class="tarjeta-grafico">
+                        <h3>Incidentes por nivel</h3>
+                        <div class="contenido-donut">
+                            <div class="anillo-donut"
+                                style="background: conic-gradient(#4db251 0% 43%, #ffb719 43% 86%, #ef4444 86% 100%);">
+                                <div class="centro-donut">
+                                    <strong>7</strong>
+                                    <small>Total</small>
+                                </div>
+                            </div>
+
+                            <div class="leyenda-donut">
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#4db251;"></span>Leves</span>
+                                    <span class="valor-leyenda">3 (43%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ffb719;"></span>Moderados</span>
+                                    <span class="valor-leyenda">3 (43%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ef4444;"></span>Graves</span>
+                                    <span class="valor-leyenda">1 (14%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-blanca">
+                <div class="cabecera-tabla-reportes">
+                    <div><h2>Incidentes recientes</h2></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="tabla-reportes">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Área</th>
+                                <th>Fecha</th>
+                                <th>Nivel</th>
+                                <th>Estado</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Golpe leve en mano derecha</strong></td>
+                                <td>Producción</td>
+                                <td>12/05/2023</td>
+                                <td><span class="nivel-tag nivel-leve">Leve</span></td>
+                                <td><span class="estado-etiqueta estado-completada">Cerrado</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Golpe leve en mano derecha', 'Área: Producción | Fecha: 12/05/2023 | Nivel: Leve | Estado: Cerrado')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Caída de herramienta</strong></td>
+                                <td>Mantenimiento</td>
+                                <td>15/05/2023</td>
+                                <td><span class="nivel-tag nivel-moderado">Moderado</span></td>
+                                <td><span class="estado-etiqueta estado-investigacion">En investigación</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Caída de herramienta', 'Área: Mantenimiento | Fecha: 15/05/2023 | Nivel: Moderado | Estado: En investigación')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contacto con sustancia química</strong></td>
+                                <td>Laboratorio</td>
+                                <td>18/05/2023</td>
+                                <td><span class="nivel-tag nivel-moderado">Moderado</span></td>
+                                <td><span class="estado-etiqueta estado-investigacion">En investigación</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Contacto con sustancia química', 'Área: Laboratorio | Fecha: 18/05/2023 | Nivel: Moderado | Estado: En investigación')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Corte superficial en dedo</strong></td>
+                                <td>Almacén</td>
+                                <td>20/05/2023</td>
+                                <td><span class="nivel-tag nivel-leve">Leve</span></td>
+                                <td><span class="estado-etiqueta estado-completada">Cerrado</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Corte superficial en dedo', 'Área: Almacén | Fecha: 20/05/2023 | Nivel: Leve | Estado: Cerrado')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lesión en espalda por esfuerzo</strong></td>
+                                <td>Producción</td>
+                                <td>22/05/2023</td>
+                                <td><span class="nivel-tag nivel-grave">Grave</span></td>
+                                <td><span class="estado-etiqueta estado-investigacion">En investigación</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Lesión en espalda por esfuerzo', 'Área: Producción | Fecha: 22/05/2023 | Nivel: Grave | Estado: En investigación')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pie-tabla">
+                    <span>Mostrando 1 a 5 de 7 incidentes</span>
+                    <div class="controles-paginacion">
+                        <button type="button" class="boton-pagina" disabled><i class="bi bi-chevron-left"></i></button>
+                        <button type="button" class="boton-pagina actual">1</button>
+                        <button type="button" class="boton-pagina">2</button>
+                        <button type="button" class="boton-pagina"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== SUBVISTA: CUMPLIMIENTO DE EPP ==================== -->
+        <section id="vistaEpp" class="d-none">
+            <div class="barra-acciones-rapida">
+                <button type="button" class="boton-volver" onclick="mostrarVista('principal')">
+                    <i class="bi bi-arrow-left"></i> Volver a Reportes
+                </button>
+                <button type="button" class="boton-exportar"
+                    onclick="descargarReporte('Cumplimiento de EPP', 'EPP', 'Hoy', 'Generado')">
+                    <i class="bi bi-download"></i> Exportar reporte
+                </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-azul"><i class="bi bi-shield-check"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">92%</span>
+                            <span class="titulo-kpi">Cumplimiento general</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-verde"><i class="bi bi-people"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">26</span>
+                            <span class="titulo-kpi">Empleados cumplidos</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-amarillo"><i class="bi bi-person"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">2</span>
+                            <span class="titulo-kpi">Empleados pendientes</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-rojo"><i class="bi bi-exclamation-triangle"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">3</span>
+                            <span class="titulo-kpi">Elementos vencidos</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-xl-7">
+                    <div class="tarjeta-grafico">
+                        <h3>Cumplimiento por área</h3>
+                        <div class="lista-barras-area">
+                            <div class="fila-barra-area">
+                                <span>Producción</span>
+                                <div class="pista-barra"><div class="relleno-barra" style="width:95%;"></div></div>
+                                <span class="porcentaje-area">95%</span>
+                            </div>
+                            <div class="fila-barra-area">
+                                <span>Mantenimiento</span>
+                                <div class="pista-barra"><div class="relleno-barra" style="width:90%;"></div></div>
+                                <span class="porcentaje-area">90%</span>
+                            </div>
+                            <div class="fila-barra-area">
+                                <span>Almacén</span>
+                                <div class="pista-barra"><div class="relleno-barra" style="width:88%;"></div></div>
+                                <span class="porcentaje-area">88%</span>
+                            </div>
+                            <div class="fila-barra-area">
+                                <span>Administración</span>
+                                <div class="pista-barra"><div class="relleno-barra" style="width:92%;"></div></div>
+                                <span class="porcentaje-area">92%</span>
+                            </div>
+                            <div class="fila-barra-area">
+                                <span>HSE</span>
+                                <div class="pista-barra"><div class="relleno-barra" style="width:94%;"></div></div>
+                                <span class="porcentaje-area">94%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-5">
+                    <div class="tarjeta-grafico">
+                        <h3>Estado de EPP</h3>
+                        <div class="contenido-donut">
+                            <div class="anillo-donut"
+                                style="background: conic-gradient(#2fb344 0% 75%, #ffb719 75% 92%, #ef4444 92% 100%);">
+                                <div class="centro-donut">
+                                    <strong>120</strong>
+                                    <small>Total elementos</small>
+                                </div>
+                            </div>
+
+                            <div class="leyenda-donut">
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#2fb344;"></span>En uso</span>
+                                    <span class="valor-leyenda">90 (75%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ffb719;"></span>Pendientes</span>
+                                    <span class="valor-leyenda">20 (17%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ef4444;"></span>Vencidos</span>
+                                    <span class="valor-leyenda">10 (8%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-blanca">
+                <div class="cabecera-tabla-reportes">
+                    <div><h2>EPP con vencimiento próximo</h2></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="tabla-reportes">
+                        <thead>
+                            <tr>
+                                <th>Elemento</th>
+                                <th>Área</th>
+                                <th>Cantidad</th>
+                                <th>Vence el</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Guantes de nitrilo</strong></td>
+                                <td>Producción</td>
+                                <td>8</td>
+                                <td>30/05/2023</td>
+                                <td><span class="estado-etiqueta estado-pendiente">Próximo a vencer</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Respirador N95</strong></td>
+                                <td>Mantenimiento</td>
+                                <td>5</td>
+                                <td>02/06/2023</td>
+                                <td><span class="estado-etiqueta estado-pendiente">Próximo a vencer</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gafas de seguridad</strong></td>
+                                <td>Almacén</td>
+                                <td>7</td>
+                                <td>05/06/2023</td>
+                                <td><span class="estado-etiqueta estado-pendiente">Próximo a vencer</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pie-tabla">
+                    <span>Mostrando 1 a 3 de 3 elementos</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== SUBVISTA: RIESGOS POR AREA ==================== -->
+        <section id="vistaRiesgos" class="d-none">
+            <div class="barra-acciones-rapida">
+                <button type="button" class="boton-volver" onclick="mostrarVista('principal')">
+                    <i class="bi bi-arrow-left"></i> Volver a Reportes
+                </button>
+                <button type="button" class="boton-exportar"
+                    onclick="descargarReporte('Riesgos por área', 'Riesgos', 'Hoy', 'Generado')">
+                    <i class="bi bi-download"></i> Exportar reporte
+                </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-azul"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">28</span>
+                            <span class="titulo-kpi">Riesgos identificados</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-rojo"><i class="bi bi-exclamation-triangle"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">9</span>
+                            <span class="titulo-kpi">Riesgos altos</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-amarillo"><i class="bi bi-activity"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">13</span>
+                            <span class="titulo-kpi">Riesgos medios</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="tarjeta-kpi">
+                        <div class="icono-kpi kpi-morado"><i class="bi bi-shield"></i></div>
+                        <div class="contenido-kpi">
+                            <span class="numero-kpi">6</span>
+                            <span class="titulo-kpi">Riesgos bajos</span>
+                            <span class="subtitulo-kpi texto-azul">Este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-xl-5">
+                    <div class="tarjeta-grafico">
+                        <h3>Distribución de riesgos por nivel</h3>
+                        <div class="contenido-donut">
+                            <div class="anillo-donut"
+                                style="background: conic-gradient(#ef4444 0% 32%, #ffb719 32% 78%, #4db251 78% 100%);">
+                                <div class="centro-donut">
+                                    <strong>28</strong>
+                                    <small>Total</small>
+                                </div>
+                            </div>
+
+                            <div class="leyenda-donut">
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ef4444;"></span>Altos</span>
+                                    <span class="valor-leyenda">9 (32%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ffb719;"></span>Medios</span>
+                                    <span class="valor-leyenda">13 (46%)</span>
+                                </div>
+                                <div class="fila-leyenda">
+                                    <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#4db251;"></span>Bajos</span>
+                                    <span class="valor-leyenda">6 (22%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-7">
+                    <div class="tarjeta-blanca h-100">
+                        <div class="cabecera-tabla-reportes">
+                            <div><h2>Riesgos por área</h2></div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="tabla-reportes">
+                                <thead>
+                                    <tr>
+                                        <th>Área</th>
+                                        <th>Altos</th>
+                                        <th>Medios</th>
+                                        <th>Bajos</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><strong>Producción</strong></td><td>4</td><td>5</td><td>2</td><td><strong>11</strong></td></tr>
+                                    <tr><td><strong>Mantenimiento</strong></td><td>2</td><td>3</td><td>1</td><td><strong>6</strong></td></tr>
+                                    <tr><td><strong>Almacén</strong></td><td>1</td><td>2</td><td>1</td><td><strong>4</strong></td></tr>
+                                    <tr><td><strong>Administración</strong></td><td>1</td><td>2</td><td>1</td><td><strong>4</strong></td></tr>
+                                    <tr><td><strong>HSE</strong></td><td>1</td><td>1</td><td>1</td><td><strong>3</strong></td></tr>
+                                    <tr class="table-light">
+                                        <td><strong>Total</strong></td>
+                                        <td><strong>9</strong></td>
+                                        <td><strong>13</strong></td>
+                                        <td><strong>6</strong></td>
+                                        <td><strong>28</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-blanca">
+                <div class="cabecera-tabla-reportes">
+                    <div><h2>Riesgos críticos</h2></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="tabla-reportes">
+                        <thead>
+                            <tr>
+                                <th>Riesgo</th>
+                                <th>Área</th>
+                                <th>Nivel</th>
+                                <th>Última evaluación</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Exposición a químicos</strong></td>
+                                <td>Producción</td>
+                                <td><span class="nivel-tag nivel-alto">Alto</span></td>
+                                <td>18/05/2023</td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Exposición a químicos', 'Área: Producción | Nivel: Alto | Última evaluación: 18/05/2023 | Medida: Uso obligatorio de respirador y ventilación localizada.')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Caídas a distinto nivel</strong></td>
+                                <td>Mantenimiento</td>
+                                <td><span class="nivel-tag nivel-alto">Alto</span></td>
+                                <td>17/05/2023</td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Caídas a distinto nivel', 'Área: Mantenimiento | Nivel: Alto | Última evaluación: 17/05/2023 | Medida: Inspección de arnés y líneas de vida.')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riesgo eléctrico</strong></td>
+                                <td>Almacén</td>
+                                <td><span class="nivel-tag nivel-alto">Alto</span></td>
+                                <td>16/05/2023</td>
+                                <td class="text-end">
+                                    <button type="button" class="boton-descargar" title="Ver detalle"
+                                        onclick="verDetalle('Riesgo eléctrico', 'Área: Almacén | Nivel: Alto | Última evaluación: 16/05/2023 | Medida: Bloqueo y etiquetado LOTO en tableros.')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pie-tabla">
+                    <span>Mostrando 1 a 3 de 3 riesgos críticos</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==================== MODAL NUEVO REPORTE ==================== -->
+    <div class="modal fade" id="modalNuevoReporte" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Nuevo reporte personalizado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombreNuevoReporte" class="form-label small fw-semibold">Nombre del reporte</label>
+                        <input type="text" id="nombreNuevoReporte" class="form-control"
+                            placeholder="Ej. Reporte trimestral de riesgos">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoriaNuevoReporte" class="form-label small fw-semibold">Categoría</label>
+                        <select id="categoriaNuevoReporte" class="form-select">
+                            <option value="">Seleccionar categoría</option>
+                            <option value="Capacitaciones">Capacitaciones</option>
+                            <option value="Incidentes">Incidentes</option>
+                            <option value="Inspecciones">Inspecciones</option>
+                            <option value="EPP">EPP</option>
+                            <option value="Riesgos">Riesgos</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcionNuevoReporte" class="form-label small fw-semibold">Descripción</label>
+                        <input type="text" id="descripcionNuevoReporte" class="form-control"
+                            placeholder="Ej. Consolidado por área y estado">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estadoNuevoReporte" class="form-label small fw-semibold">Estado inicial</label>
+                        <select id="estadoNuevoReporte" class="form-select">
+                            <option value="generado">Generado</option>
+                            <option value="detenido">Detenido</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" id="guardarNuevoReporte" class="btn btn-primary"
+                        style="background-color:#0b1936; border-color:#0b1936;">
+                        Generar reporte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL DETALLE ==================== -->
+    <div class="modal fade" id="modalDetalleReporte" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="tituloModalDetalle">Detalle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="cuerpoModalDetalle" class="mb-0 text-secondary"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        style="background-color:#0b1936; border-color:#0b1936;">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL CERRAR SESION ==================== -->
+    <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-labelledby="tituloCerrarSesion" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-confirmacion">
+                <div class="modal-header">
+                    <div class="icono-cerrar-sesion">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <h5 id="tituloCerrarSesion">¿Cerrar sesión?</h5>
+                    <p>¿Estás seguro de que deseas cerrar tu sesión?</p>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary boton-cancelar" data-bs-dismiss="modal">
+                        No, permanecer
+                    </button>
+                    <a href="index.html" class="btn boton-confirmar">
+                        Sí, cerrar sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="toastReporte" class="toast-reporte" role="status" aria-live="polite">
+        <i class="bi bi-check-circle-fill"></i>
+        <span id="mensajeToast">Acción completada</span>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const buscador = document.getElementById("buscarReporte");
+        const filtroEstado = document.getElementById("filtroEstado");
+        const cuerpoTabla = document.getElementById("cuerpoTablaReportes");
+        const contadorReportes = document.getElementById("contadorReportes");
+        const kpiDescargas = document.getElementById("kpiDescargas");
+        const kpiGenerados = document.getElementById("kpiGenerados");
+        const kpiPersonalizados = document.getElementById("kpiPersonalizados");
+        const toastReporte = document.getElementById("toastReporte");
+        const mensajeToast = document.getElementById("mensajeToast");
+
+        let temporizadorToast = null;
+
+        function mostrarToast(texto) {
+            mensajeToast.textContent = texto;
+            toastReporte.classList.add("visible");
+            clearTimeout(temporizadorToast);
+            temporizadorToast = setTimeout(function () {
+                toastReporte.classList.remove("visible");
+            }, 3000);
+        }
+
+        function filtrarReportes() {
+            const texto = buscador.value.toLowerCase().trim();
+            const estado = filtroEstado.value;
+            const filas = cuerpoTabla.querySelectorAll("tr");
+            let visibles = 0;
+
+            filas.forEach(function (fila) {
+                const contenido = fila.textContent.toLowerCase();
+                const estadoFila = fila.getAttribute("data-estado");
+                const coincideTexto = contenido.includes(texto);
+                const coincideEstado = estado === "todos" || estadoFila === estado;
+
+                if (coincideTexto && coincideEstado) {
+                    fila.style.display = "";
+                    visibles++;
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+
+            if (visibles === 0) {
+                contadorReportes.textContent = "No se encontraron reportes con los filtros actuales";
+            } else {
+                contadorReportes.textContent =
+                    "Mostrando 1 a " + visibles + " de " + filas.length + " reportes";
+            }
+        }
+
+        function filtrarPorEstado(estado) {
+            mostrarVista("principal");
+            filtroEstado.value = estado;
+            filtrarReportes();
+        }
+
+        buscador.addEventListener("input", function () {
+            mostrarVista("principal");
+            filtrarReportes();
+        });
+
+        filtroEstado.addEventListener("change", filtrarReportes);
+
+        function descargarReporte(nombre, categoria, fecha, estado) {
+            const contenidoCsv =
+                "Nombre,Categoria,Fecha,Estado\n" +
+                `"${nombre}","${categoria}","${fecha}","${estado}"\n`;
+
+            const blob = new Blob([contenidoCsv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const enlace = document.createElement("a");
+            enlace.href = url;
+            enlace.download = nombre.toLowerCase().replace(/\s+/g, "-") + ".csv";
+            document.body.appendChild(enlace);
+            enlace.click();
+            document.body.removeChild(enlace);
+            URL.revokeObjectURL(url);
+
+            kpiDescargas.textContent = Number(kpiDescargas.textContent) + 1;
+            mostrarToast("Descarga iniciada: " + nombre);
+        }
+
+        const configuracionVistas = {
+            principal: {
+                id: "vistaPrincipal",
+                titulo: "Reportes",
+                subtitulo: "Generación y consulta de reportes e indicadores del sistema.",
+                miga: ""
+            },
+            capacitaciones: {
+                id: "vistaCapacitaciones",
+                titulo: "Resumen de capacitaciones",
+                subtitulo: "Información general sobre las capacitaciones realizadas.",
+                miga: "Resumen de capacitaciones"
+            },
+            incidentes: {
+                id: "vistaIncidentes",
+                titulo: "Incidentes del mes",
+                subtitulo: "Resumen de incidentes reportados en el mes actual.",
+                miga: "Incidentes del mes"
+            },
+            epp: {
+                id: "vistaEpp",
+                titulo: "Cumplimiento de EPP",
+                subtitulo: "Estado de cumplimiento en el uso y entrega de EPP.",
+                miga: "Cumplimiento de EPP"
+            },
+            riesgos: {
+                id: "vistaRiesgos",
+                titulo: "Riesgos por área",
+                subtitulo: "Resumen de riesgos identificados y su nivel por área.",
+                miga: "Riesgos por área"
+            }
+        };
+
+        function mostrarVista(clave) {
+            const vista = configuracionVistas[clave] || configuracionVistas.principal;
+
+            Object.values(configuracionVistas).forEach(function (v) {
+                document.getElementById(v.id).classList.add("d-none");
+            });
+
+            document.getElementById(vista.id).classList.remove("d-none");
+            document.getElementById("tituloVista").textContent = vista.titulo;
+            document.getElementById("subtituloVista").textContent = vista.subtitulo;
+
+            const migaPan = document.getElementById("migaPan");
+            if (vista.miga) {
+                migaPan.classList.remove("d-none");
+                document.getElementById("migaPanActual").textContent = vista.miga;
+            } else {
+                migaPan.classList.add("d-none");
+            }
+        }
+
+        function verDetalle(titulo, texto) {
+            document.getElementById("tituloModalDetalle").textContent = titulo;
+            document.getElementById("cuerpoModalDetalle").textContent = texto;
+            const modal = new bootstrap.Modal(document.getElementById("modalDetalleReporte"));
+            modal.show();
+        }
+
+        const estilosCategoria = {
+            Capacitaciones: { clase: "cat-capacitaciones", fondo: "kpi-verde", icono: "bi-people" },
+            Incidentes: { clase: "cat-incidentes", fondo: "kpi-rojo", icono: "bi-exclamation-triangle" },
+            Inspecciones: { clase: "cat-inspecciones", fondo: "kpi-morado", icono: "bi-shield" },
+            EPP: { clase: "cat-epp", fondo: "kpi-amarillo", icono: "bi-shield-check" },
+            Riesgos: { clase: "cat-riesgos", fondo: "kpi-azul", icono: "bi-activity" }
+        };
+
+        document.getElementById("guardarNuevoReporte").addEventListener("click", function () {
+            const nombre = document.getElementById("nombreNuevoReporte").value.trim();
+            const categoria = document.getElementById("categoriaNuevoReporte").value;
+            const descripcion = document.getElementById("descripcionNuevoReporte").value.trim();
+            const estado = document.getElementById("estadoNuevoReporte").value;
+
+            if (!nombre || !categoria || !descripcion) {
+                alert("Por favor completa todos los campos del reporte.");
+                return;
+            }
+
+            const hoy = new Date().toLocaleDateString("es-ES", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+
+            const estilo = estilosCategoria[categoria] || estilosCategoria.Capacitaciones;
+            const textoEstado = estado === "generado" ? "Generado" : "Detenido";
+            const claseEstado = estado === "generado" ? "estado-generado" : "estado-detenido";
+
+            const fila = document.createElement("tr");
+            fila.setAttribute("data-estado", estado);
+            fila.innerHTML = `
+                <td>
+                    <div class="celda-nombre-reporte">
+                        <div class="icono-fila ${estilo.fondo}">
+                            <i class="bi ${estilo.icono}"></i>
+                        </div>
+                        <div class="textos-fila">
+                            <strong></strong>
+                            <small>Reporte personalizado</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="categoria-texto ${estilo.clase}"></span></td>
+                <td class="celda-descripcion"></td>
+                <td>${hoy}</td>
+                <td>
+                    <span class="estado-etiqueta ${claseEstado}">
+                        <span class="punto"></span> ${textoEstado}
+                    </span>
+                </td>
+                <td class="text-end">
+                    <button type="button" class="boton-descargar" title="Descargar reporte">
+                        <i class="bi bi-download"></i>
+                    </button>
+                </td>
+            `;
+
+            fila.querySelector(".textos-fila strong").textContent = nombre;
+            fila.querySelector(".categoria-texto").textContent = categoria;
+            fila.querySelector(".celda-descripcion").textContent = descripcion;
+            fila.querySelector(".boton-descargar").addEventListener("click", function () {
+                descargarReporte(nombre, categoria, hoy, textoEstado);
+            });
+
+            cuerpoTabla.prepend(fila);
+
+            kpiPersonalizados.textContent = Number(kpiPersonalizados.textContent) + 1;
+            if (estado === "generado") {
+                kpiGenerados.textContent = Number(kpiGenerados.textContent) + 1;
+            }
+
+            document.getElementById("nombreNuevoReporte").value = "";
+            document.getElementById("categoriaNuevoReporte").value = "";
+            document.getElementById("descripcionNuevoReporte").value = "";
+            document.getElementById("estadoNuevoReporte").value = "generado";
+
+            bootstrap.Modal.getInstance(document.getElementById("modalNuevoReporte")).hide();
+            filtrarReportes();
+            mostrarToast("Reporte creado: " + nombre);
+        });
+    </script>
+
+</body>
+
+</html>
