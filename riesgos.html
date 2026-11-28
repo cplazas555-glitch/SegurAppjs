@@ -125,7 +125,7 @@
                     <div class="contenido-kpi">
                         <span class="numero-kpi" id="kpiTotal">3</span>
                         <span class="titulo-kpi">Total de riesgos</span>
-                        <span class="subtitulo-kpi texto-azul">Ver todos</span>
+                        <button type="button" id="btnVerTodosRiesgos" class="enlace-accion subtitulo-kpi texto-azul" aria-expanded="false">Ver todos</button>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                     <div class="contenido-kpi">
                         <span class="numero-kpi" id="kpiAltos">1</span>
                         <span class="titulo-kpi">Riesgos altos</span>
-                        <span class="subtitulo-kpi texto-rojo">28% del total</span>
+                        <span class="subtitulo-kpi texto-rojo" id="subKpiAltos">33% del total</span>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                     <div class="contenido-kpi">
                         <span class="numero-kpi" id="kpiMedios">1</span>
                         <span class="titulo-kpi">Riesgos medios</span>
-                        <span class="subtitulo-kpi texto-amarillo">42% del total</span>
+                        <span class="subtitulo-kpi texto-amarillo" id="subKpiMedios">33% del total</span>
                     </div>
                 </div>
             </div>
@@ -155,16 +155,22 @@
                     <div class="contenido-kpi">
                         <span class="numero-kpi" id="kpiBajos">1</span>
                         <span class="titulo-kpi">Riesgos bajos</span>
-                        <span class="subtitulo-kpi texto-verde">29% del total</span>
+                        <span class="subtitulo-kpi texto-verde" id="subKpiBajos">33% del total</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="tarjeta-blanca mb-4">
+        <section class="tarjeta-blanca mb-4" id="seccionListadoRiesgos">
             <div class="cabecera-tarjeta">
                 <div>
-                    <h2>Listado de riesgos</h2>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h2>Listado de riesgos</h2>
+                        <span id="badgeVistaCompleta" class="etiqueta-pill pill-azul d-none">Vista completa</span>
+                        <button type="button" id="btnVolverResumenRiesgos" class="enlace-accion d-none">
+                            <i class="bi bi-arrow-left"></i> Volver al resumen
+                        </button>
+                    </div>
                     <p id="subtituloRegistros">3 registros encontrados</p>
                 </div>
 
@@ -254,36 +260,36 @@
 
             <div class="pie-tabla">
                 <span id="contadorPie">Mostrando 1 a 3 de 3 registros</span>
-                <div class="controles-paginacion">
+                <div class="controles-paginacion" id="controlesPaginacion">
                     <button type="button" class="boton-pagina actual">1</button>
                 </div>
             </div>
         </section>
 
-        <section class="row g-3">
+        <section class="row g-3" id="seccionWidgetsRiesgos">
             <div class="col-12 col-xl-5">
                 <div class="tarjeta-widget h-100">
                     <h2>Niveles de riesgo</h2>
                     <div class="contenido-donut">
-                        <div class="anillo-donut"
-                            style="background: conic-gradient(#ef4444 0% 28%, #ffb719 28% 70%, #2fb344 70% 100%);">
+                        <div class="anillo-donut" id="anilloDonutRiesgos"
+                            style="background: conic-gradient(#ef4444 0% 33.33%, #ffb719 33.33% 66.67%, #2fb344 66.67% 100%);">
                             <div class="centro-donut">
-                                <strong>28</strong>
+                                <strong id="totalDonutRiesgos">3</strong>
                                 <small>Total</small>
                             </div>
                         </div>
                         <div class="leyenda-donut">
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ef4444;"></span>Alto</span>
-                                <strong>(28%)</strong>
+                                <strong id="porcentajeRiesgoAlto">(33%)</strong>
                             </div>
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ffb719;"></span>Medio</span>
-                                <strong>(42%)</strong>
+                                <strong id="porcentajeRiesgoMedio">(33%)</strong>
                             </div>
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#2fb344;"></span>Bajo</span>
-                                <strong>(29%)</strong>
+                                <strong id="porcentajeRiesgoBajo">(33%)</strong>
                             </div>
                         </div>
                     </div>
@@ -332,38 +338,46 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="alertaErrorRiesgo" class="alert alert-danger d-none py-2 small" role="alert"></div>
                     <div class="mb-3">
-                        <label for="nombreRiesgo" class="form-label small fw-semibold">Nombre del riesgo</label>
-                        <input type="text" id="nombreRiesgo" class="form-control" placeholder="Ej. Exposición a solventes">
+                        <label for="nombreRiesgo" class="form-label small fw-semibold">Nombre del riesgo *</label>
+                        <input type="text" id="nombreRiesgo" class="form-control" placeholder="Ej. Exposición a solventes" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descripcionRiesgo" class="form-label small fw-semibold">Descripción</label>
-                        <input type="text" id="descripcionRiesgo" class="form-control" placeholder="Breve detalle del riesgo">
+                        <label for="descripcionRiesgo" class="form-label small fw-semibold">Descripción *</label>
+                        <input type="text" id="descripcionRiesgo" class="form-control" placeholder="Breve detalle del riesgo" required>
                     </div>
                     <div class="row g-3">
-                        <div class="col-12 col-sm-4">
-                            <label for="areaRiesgo" class="form-label small fw-semibold">Área</label>
-                            <select id="areaRiesgo" class="form-select">
+                        <div class="col-12 col-sm-6">
+                            <label for="areaRiesgo" class="form-label small fw-semibold">Área *</label>
+                            <select id="areaRiesgo" class="form-select" required>
                                 <option value="Producción">Producción</option>
                                 <option value="Almacén">Almacén</option>
                                 <option value="Mantenimiento">Mantenimiento</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="tipoRiesgo" class="form-label small fw-semibold">Tipo</label>
-                            <select id="tipoRiesgo" class="form-select">
+                        <div class="col-12 col-sm-6">
+                            <label for="tipoRiesgo" class="form-label small fw-semibold">Tipo *</label>
+                            <select id="tipoRiesgo" class="form-select" required>
                                 <option value="Seguridad">Seguridad</option>
                                 <option value="Ergonómico">Ergonómico</option>
                                 <option value="Físico">Físico</option>
                                 <option value="Químico">Químico</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="nivelRiesgo" class="form-label small fw-semibold">Nivel</label>
-                            <select id="nivelRiesgo" class="form-select">
+                        <div class="col-12 col-sm-6">
+                            <label for="nivelRiesgo" class="form-label small fw-semibold">Nivel *</label>
+                            <select id="nivelRiesgo" class="form-select" required>
                                 <option value="Alto">Alto</option>
                                 <option value="Medio">Medio</option>
                                 <option value="Bajo">Bajo</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="estadoRiesgo" class="form-label small fw-semibold">Estado *</label>
+                            <select id="estadoRiesgo" class="form-select" required>
+                                <option value="Activo" selected>Activo</option>
+                                <option value="Mitigado">Mitigado</option>
                             </select>
                         </div>
                     </div>

@@ -111,7 +111,7 @@
                 <div class="tarjeta-kpi">
                     <div class="icono-kpi kpi-amarillo"><i class="bi bi-clock"></i></div>
                     <div class="contenido-kpi">
-                        <span class="numero-kpi">2</span>
+                        <span class="numero-kpi" id="kpiProximas">2</span>
                         <span class="titulo-kpi">Próximas a vencer</span>
                         <span class="subtitulo-kpi texto-amarillo">En los próximos 30 días</span>
                     </div>
@@ -131,7 +131,7 @@
                 <div class="tarjeta-kpi">
                     <div class="icono-kpi kpi-azul"><i class="bi bi-box"></i></div>
                     <div class="contenido-kpi">
-                        <span class="numero-kpi">5</span>
+                        <span class="numero-kpi" id="kpiTotalAlertas">5</span>
                         <span class="titulo-kpi">Total de alertas</span>
                         <span class="subtitulo-kpi texto-azul">Este mes</span>
                     </div>
@@ -154,6 +154,9 @@
                                 <option value="Activo">Activo</option>
                                 <option value="Atendida">Atendida</option>
                             </select>
+                            <button type="button" class="boton-primario" data-bs-toggle="modal" data-bs-target="#modalNuevaAlerta">
+                                <i class="bi bi-plus-lg"></i> Nueva alerta
+                            </button>
                         </div>
                     </div>
 
@@ -170,7 +173,7 @@
                                 </tr>
                             </thead>
                             <tbody id="cuerpoAlertas">
-                                <tr data-estado="Activo">
+                                <tr data-estado="Activo" data-prioridad="Alta" data-proxima="true">
                                     <td>
                                         <div class="celda-principal">
                                             <div class="icono-fila kpi-rojo"><i class="bi bi-bell"></i></div>
@@ -196,7 +199,7 @@
                                     </td>
                                 </tr>
 
-                                <tr data-estado="Activo">
+                                <tr data-estado="Activo" data-prioridad="Alta" data-proxima="true">
                                     <td>
                                         <div class="celda-principal">
                                             <div class="icono-fila kpi-amarillo"><i class="bi bi-bell"></i></div>
@@ -222,7 +225,7 @@
                                     </td>
                                 </tr>
 
-                                <tr data-estado="Activo">
+                                <tr data-estado="Activo" data-prioridad="Media">
                                     <td>
                                         <div class="celda-principal">
                                             <div class="icono-fila kpi-azul"><i class="bi bi-bell"></i></div>
@@ -248,7 +251,7 @@
                                     </td>
                                 </tr>
 
-                                <tr data-estado="Activo">
+                                <tr data-estado="Activo" data-prioridad="Media">
                                     <td>
                                         <div class="celda-principal">
                                             <div class="icono-fila kpi-amarillo"><i class="bi bi-bell"></i></div>
@@ -274,7 +277,7 @@
                                     </td>
                                 </tr>
 
-                                <tr data-estado="Activo">
+                                <tr data-estado="Activo" data-prioridad="Baja">
                                     <td>
                                         <div class="celda-principal">
                                             <div class="icono-fila kpi-azul"><i class="bi bi-bell"></i></div>
@@ -318,7 +321,7 @@
                 <div class="tarjeta-widget mb-3">
                     <h2>Alertas por prioridad</h2>
                     <div class="contenido-donut">
-                        <div class="anillo-donut"
+                        <div class="anillo-donut" id="anilloDonutAlertas"
                             style="background: conic-gradient(#ef4444 0% 40%, #ea580c 40% 80%, #2fb344 80% 100%);">
                             <div class="centro-donut">
                                 <strong id="totalDonut">5</strong>
@@ -328,15 +331,15 @@
                         <div class="leyenda-donut">
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ef4444;"></span>Alta</span>
-                                <strong>2 (40%)</strong>
+                                <strong id="leyendaAlertaAlta">2 (40%)</strong>
                             </div>
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#ea580c;"></span>Media</span>
-                                <strong>2 (40%)</strong>
+                                <strong id="leyendaAlertaMedia">2 (40%)</strong>
                             </div>
                             <div class="fila-leyenda">
                                 <span class="etiqueta-leyenda"><span class="punto-leyenda" style="background:#2fb344;"></span>Baja</span>
-                                <strong>1 (20%)</strong>
+                                <strong id="leyendaAlertaBaja">1 (20%)</strong>
                             </div>
                         </div>
                     </div>
@@ -381,6 +384,64 @@
         </section>
 
     </main>
+
+    <!-- MODAL NUEVA ALERTA -->
+    <div class="modal fade" id="modalNuevaAlerta" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Registrar nueva alerta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="alertaErrorAlerta" class="alert alert-danger d-none py-2 small" role="alert"></div>
+                    <div class="mb-3">
+                        <label for="tituloAlerta" class="form-label small fw-semibold">Título de la alerta *</label>
+                        <input type="text" id="tituloAlerta" class="form-control" placeholder="Ej. Renovación examen médico periódico" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="detalleAlerta" class="form-label small fw-semibold">Detalle *</label>
+                        <input type="text" id="detalleAlerta" class="form-control" placeholder="Ej. requiere programación con SST" required>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="categoriaAlerta" class="form-label small fw-semibold">Categoría *</label>
+                            <select id="categoriaAlerta" class="form-select" required>
+                                <option value="Capacitación">Capacitación</option>
+                                <option value="Inspección">Inspección</option>
+                                <option value="EPP">EPP</option>
+                                <option value="Riesgo">Riesgo</option>
+                                <option value="Documento">Documento</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="fechaAlerta" class="form-label small fw-semibold">Fecha límite *</label>
+                            <input type="date" id="fechaAlerta" class="form-control" required>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="prioridadAlerta" class="form-label small fw-semibold">Prioridad *</label>
+                            <select id="prioridadAlerta" class="form-select" required>
+                                <option value="Alta">Alta</option>
+                                <option value="Media">Media</option>
+                                <option value="Baja">Baja</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="estadoAlerta" class="form-label small fw-semibold">Estado *</label>
+                            <select id="estadoAlerta" class="form-select" required>
+                                <option value="Activo" selected>Activo</option>
+                                <option value="Atendida">Atendida</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" id="guardarAlerta" class="btn boton-primario">Guardar alerta</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- MODAL CERRAR SESION -->
     <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">

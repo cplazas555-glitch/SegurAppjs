@@ -365,7 +365,7 @@
                                         <h3 class="h6 fw-bold mb-0">Plantillas de documentos</h3>
                                         <small class="text-secondary">Formatos estándar del Sistema de Gestión.</small>
                                     </div>
-                                    <button type="button" class="boton-primario" onclick="mostrarToast('Nueva plantilla lista para configurar')">
+                                    <button type="button" class="boton-primario" data-bs-toggle="modal" data-bs-target="#modalNuevaPlantilla">
                                         <i class="bi bi-plus-lg"></i> Nueva plantilla
                                     </button>
                                 </div>
@@ -379,38 +379,7 @@
                                                 <th class="text-end">ACCIONES</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="celda-principal">
-                                                        <span class="etiqueta-pill pill-rojo">PDF</span>
-                                                        <div class="textos-fila"><strong>Acta de Inspección de Extintores</strong><small>Formato estándar mensual</small></div>
-                                                    </div>
-                                                </td>
-                                                <td>11/05/2026<br><small>08:30 a. m.</small></td>
-                                                <td class="text-end"><button type="button" class="boton-icono" onclick="mostrarToast('Descargando plantilla PDF')"><i class="bi bi-download"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="celda-principal">
-                                                        <span class="etiqueta-pill pill-azul">DOCX</span>
-                                                        <div class="textos-fila"><strong>Formato de Entrega de EPP</strong><small>Control de dotación por empleado</small></div>
-                                                    </div>
-                                                </td>
-                                                <td>09/05/2026<br><small>02:15 p. m.</small></td>
-                                                <td class="text-end"><button type="button" class="boton-icono" onclick="mostrarToast('Descargando plantilla DOCX')"><i class="bi bi-download"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="celda-principal">
-                                                        <span class="etiqueta-pill pill-rojo">PDF</span>
-                                                        <div class="textos-fila"><strong>Reporte de Investigación de Incidentes</strong><small>Registro de causas y acciones</small></div>
-                                                    </div>
-                                                </td>
-                                                <td>04/05/2026<br><small>11:10 a. m.</small></td>
-                                                <td class="text-end"><button type="button" class="boton-icono" onclick="mostrarToast('Descargando plantilla PDF')"><i class="bi bi-download"></i></button></td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="tablaPlantillas"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -552,6 +521,60 @@
         </section>
 
     </main>
+
+    <!-- MODAL NUEVA PLANTILLA -->
+    <div class="modal fade" id="modalNuevaPlantilla" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Crear nueva plantilla</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="alertaErrorPlantilla" class="alert alert-danger d-none py-2 small" role="alert"></div>
+                    <div class="mb-3">
+                        <label for="nombrePlantilla" class="form-label small fw-semibold">Nombre de la plantilla *</label>
+                        <input type="text" id="nombrePlantilla" class="form-control" placeholder="Ej. Permiso de Trabajo en Alturas" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcionPlantilla" class="form-label small fw-semibold">Descripción *</label>
+                        <input type="text" id="descripcionPlantilla" class="form-control" placeholder="Ej. Lista de verificación previa a tareas en altura" required>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="formatoPlantilla" class="form-label small fw-semibold">Formato *</label>
+                            <select id="formatoPlantilla" class="form-select" required>
+                                <option value="PDF">PDF</option>
+                                <option value="DOCX">DOCX</option>
+                                <option value="CSV">CSV</option>
+                                <option value="TXT">TXT</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="categoriaPlantilla" class="form-label small fw-semibold">Categoría *</label>
+                            <select id="categoriaPlantilla" class="form-select" required>
+                                <option value="Inspecciones">Inspecciones</option>
+                                <option value="EPP">EPP</option>
+                                <option value="Incidentes">Incidentes</option>
+                                <option value="Riesgos">Riesgos</option>
+                                <option value="Capacitaciones">Capacitaciones</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="contenidoPlantilla" class="form-label small fw-semibold">Contenido de la plantilla *</label>
+                        <textarea id="contenidoPlantilla" class="form-control" rows="5"
+                            placeholder="Define los campos, secciones o ítems que contendrá el documento descargable..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" id="guardarPlantilla" class="btn boton-primario">Guardar plantilla</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- MODAL CERRAR SESION -->
     <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-hidden="true">
